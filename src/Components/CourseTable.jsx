@@ -1,9 +1,20 @@
 import React from 'react';
-import { coursesList } from '../API/CourseData';
+import { fetchAllCourses } from '../API/CourseAPI';
 
 
 export default function CoursesTable() {
-  return <>
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const loadCourses = async () => {
+      const data = await fetchAllCourses();
+      setCourses(data);
+    };
+
+    loadCourses();
+  }, []);
+
+  return (
     <div className="overflow-x-auto w-full p-4">
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full text-sm text-left text-gray-800">
@@ -17,7 +28,7 @@ export default function CoursesTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {coursesList.map((course) => (
+            {courses.map((course) => (
               <tr key={course.id} className="hover:bg-gray-50">
                 <td className="px-4 py-3 font-medium">{course.Title}</td>
                 <td className="px-4 py-3">{course.Description}</td>
@@ -37,5 +48,5 @@ export default function CoursesTable() {
         </table>
       </div>
     </div>
-  </>
+  );
 }

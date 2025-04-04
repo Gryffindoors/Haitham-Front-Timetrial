@@ -1,8 +1,18 @@
-import React from 'react';
-import { mockUsers } from '../API/UserAPI';
-
+import React, { useEffect, useState } from 'react';
+import { fetchAllUsers } from '../API/UserAPI';
 
 export default function UserTable() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      const data = await fetchAllUsers();
+      setUsers(data);
+    };
+
+    loadUsers();
+  }, []);
+
   return (
     <div className="overflow-x-auto w-full">
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
@@ -16,7 +26,7 @@ export default function UserTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {mockUsers.map((user, index) => (
+            {users.map((user, index) => (
               <tr key={index} className="hover:bg-gray-50">
                 <td className="px-4 py-3">{user.firstName}</td>
                 <td className="px-4 py-3">{user.lastName}</td>
