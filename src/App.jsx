@@ -7,14 +7,14 @@ import Accounts from "./Pages/Accounts"
 
 function App() {
 
-  return    <>
-      
-    <Navbar/>
+  return <>
+
+    <Navbar />
     {/* <HomePage/> */}
-    {/* <Courses/> */}
-      <Accounts/>
-    </>
-  
+    <Courses/>
+    {/* <Accounts/> */}
+  </>
+
 }
 
 export default App
